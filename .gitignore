@@ -1,0 +1,7 @@
+dist/
+build/
+env/
+__pycache__/
+app.exe
+main.spec
+terminos_condiciones.txt
