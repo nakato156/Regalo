@@ -1,6 +1,6 @@
 import flet as ft
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Union
 
 from .helpers.install_helpers import copiar_exe, agregar_al_Path
 from .components import Modal_Cerrar, Controles
@@ -43,7 +43,7 @@ class Regalo():
         self.main = main
         ft.app(target=self.app, view=ft.AppView.FLET_APP)
     
-    def instalar_regalo(self, pb:ft.ProgressBar, path_instalacion):
+    def instalar_regalo(self, pb:ft.ProgressBar, path_instalacion) -> Union[None, tuple[bool, str]]:
         path_instalacion = Path(path_instalacion)
         if path_instalacion.name.lower() != self.nombre_regalo.lower():
             path_instalacion = path_instalacion / self.nombre_regalo
@@ -60,7 +60,7 @@ class Regalo():
             pb.value = porcentaje
 
         if self.variables_instalador.get("agregar_path"):
-            agregar_al_Path(path_instalacion)
+            return agregar_al_Path(path_instalacion)
 
     def __route_change(self, event:ft.RouteChangeEvent):
         ruta = event.route
