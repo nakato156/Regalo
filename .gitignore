@@ -1,7 +1,15 @@
+# pypi 
 dist/
 build/
+Regalo.egg-info/
+
+# enviroment
 env/
+
+# python cache
 __pycache__/
+
+# otros
 app.exe
 main.spec
 terminos_condiciones.txt
