@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from subprocess import Popen
+import subprocess
 
 def copiar_exe(path_exe, path_destino):
     total_size = os.path.getsize(path_exe)
@@ -12,11 +12,18 @@ def copiar_exe(path_exe, path_destino):
                     total_copiado += len(chunk)
                     yield total_copiado * 100 / total_size
 
-def agregar_al_Path(path_instalacion:Path) -> bool:
-    comando = f'SETX PATH %PATH%;"{path_instalacion}"'
-    proceso = Popen(comando, shell=True)
+def agregar_al_Path(path_instalacion:Path) -> tuple[bool, str]:
+    # Obtén el valor actual de la variable PATH
+    current_path = subprocess.check_output('echo %PATH%', shell=True, text=True).strip()
 
-    # Esperar a que el proceso termine y obtener el código de retorno
-    codigo_retorno = proceso.wait()
-
-    return codigo_retorno == 0
+    # Verifica si el directorio ya está en la variable PATH
+    if path_instalacion not in current_path:
+        # Agrega el directorio al PATH usando subprocess
+        cmd = f'SETX PATH "%PATH%;{path_instalacion}"'
+        try:
+            subprocess.run(cmd, check=True, shell=True)
+            return True, f'Ruta {path_instalacion} agregada al PATH correctamente.'
+        except subprocess.CalledProcessError as e:
+            False, f'Error al agregar la ruta al PATH: {e.returncode}'
+    else:
+        False, f'La ruta {path_instalacion} ya está presente en el PATH.'
