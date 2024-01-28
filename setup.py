@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='Regalo',
-    version='0.1',
+    version='0.2',
     license='MIT',
     description='Creador de instaladores para windows',
     long_description_content_type="text/markdown",
