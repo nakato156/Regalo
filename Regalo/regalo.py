@@ -1,6 +1,7 @@
 import flet as ft
 from pathlib import Path
 from typing import Callable, Union
+from shutil import rmtree
 
 from .helpers.install_helpers import copiar_exe, agregar_al_Path
 from .components import Modal_Cerrar, Controles
@@ -49,7 +50,8 @@ class Regalo():
             path_instalacion = path_instalacion / self.nombre_regalo
         
         if path_instalacion.exists():
-            path_instalacion.rmdir()
+            rmtree(path_instalacion)
+            
         path_instalacion.mkdir(parents=True, exist_ok=True)  
         
         ext = self.path_instalador_exe.suffix
