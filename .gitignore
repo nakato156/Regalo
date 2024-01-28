@@ -9,7 +9,10 @@ env/
 # python cache
 __pycache__/
 
+# spec
+*.spec
+
+
 # otros
 app.exe
-main.spec
 terminos_condiciones.txt
