@@ -17,7 +17,7 @@ def agregar_al_Path(path_instalacion:Path) -> tuple[bool, str]:
     current_path = subprocess.check_output('echo %PATH%', shell=True, text=True).strip()
 
     # Verifica si el directorio ya está en la variable PATH
-    if path_instalacion not in current_path:
+    if str(path_instalacion) not in current_path:
         # Agrega el directorio al PATH usando subprocess
         cmd = f'SETX PATH "%PATH%;{path_instalacion}"'
         try:
